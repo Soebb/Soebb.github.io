@@ -25,7 +25,7 @@ refresh_button = [
 ]
 dir = os.getcwd().replace('\\', '/') + '/'
 vdir = 'C:/Users/Administrator/Downloads/Telegram Desktop/*'
-
+vdir = dir
 a1 = dir + '1.mp3'
 a2 = dir + '2.mp3'
 a3 = dir + '3.mp3'
