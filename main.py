@@ -58,7 +58,7 @@ def gettime(t2):
     try:
         tt2 = t2.text.split('.')[1]
         t2 = t2.text.split('.')[0]
-        t2 = f'0{t2.text[:1]}:{t2.text[:3][1:]}:{t2.text[3:]}'
+        t2 = f'0{t2[:1]}:{t2[:3][1:]}:{t2[3:]}'
     except:
         tt2 = None
         t2 = f'0{t2.text[:1]}:{t2.text[:3][1:]}:{t2.text[3:]}'
