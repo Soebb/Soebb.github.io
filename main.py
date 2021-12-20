@@ -6,9 +6,9 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 import PTN
 import shutil
 
-BOT_TOKEN = "5011115624:AAEDtnMcl3rXM9u-d-Su_YnHcilMyNcNPNw"
-API_ID = "4328913"
-API_HASH = "3230ec801f78a517c9a2ad6bebb7f7b4"
+BOT_TOKEN = os.environ.get('BOT_TOKEN')
+API_ID = os.environ.get('API_ID')
+API_HASH = os.environ.get('API_HASH')
 
 bot = Client(
     ":memory:",
