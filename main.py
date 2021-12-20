@@ -17,16 +17,16 @@ bot = Client(
     api_hash = API_HASH
 )
 
-@bot.on_message(filters.video | filters.document)
+@bot.on_message(filters.text)
 async def startt(bot, m):
     a2_1 = AudioSegment.from_mp3(dir + '2.1.mp3')
     a2_2 = AudioSegment.from_mp3(dir + '2.2.mp3')
     aa2 = a2_1.append(a2_2)
     aa2.export(dir+"2.mp3", format="mp3")
-    video_info = subprocess.check_output(f'ffprobe -v quiet -show_streams -select_streams a:0 -of json "2.1.mp3"', shell=True).decode()
+    video_info = subprocess.check_output(f'ffprobe -v quiet -show_streams -select_streams a:0 -of json "{m.text}"', shell=True).decode()
     fields = json.loads(video_info)['streams'][0]
-    duration = int(fields['duration'])
-    print(duration)
+    duration = fields['duration']
+    await m.reply(duration)
     #os.system('ffmpeg -i 2.2.mp3')
 
 bot.run()
