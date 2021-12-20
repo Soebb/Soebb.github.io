@@ -1,5 +1,5 @@
 from pydub import AudioSegment
-import os, time
+import os, time, json, subprocess
 from pyromod import listen
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
@@ -23,6 +23,9 @@ async def startt(bot, m):
     a2_2 = AudioSegment.from_mp3(dir + '2.2.mp3')
     aa2 = a2_1.append(a2_2)
     aa2.export(dir+"2.mp3", format="mp3")
+    video_info = subprocess.check_output(f'ffprobe -v quiet -show_streams -select_streams v:0 -of json "{file_dl_path}"', shell=True).decode()
+    fields = json.loads(video_info)['streams'][0]
+    duration = int(fields['duration'])
 
     os.system('ffmpeg -i 2.2.mp3')
 
