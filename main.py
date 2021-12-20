@@ -54,14 +54,15 @@ async def start(bot, m):
     #await bot.send_message(chat_id=id, text="Which one?", reply_markup=InlineKeyboardMarkup(keyboard))
     await m.reply_text(text="Which one?", reply_markup=InlineKeyboardMarkup(keyboard))
 
-def gettime(t2):
+def gettime(t):
+    t2 = t
     try:
         tt2 = t2.text.split('.')[1]
         t2 = t2.text.split('.')[0]
         t2 = f'0{t2.text[:1]}:{t2.text[:3][1:]}:{t2.text[3:]}'
     except:
         tt2 = None
-        t2 = f'0{t2.text[:1]}:{t2.text[:3][1:]}:{t2.text[3:]}'
+        t2 = f'0{t.text[:1]}:{t.text[:3][1:]}:{t.text[3:]}'
     t2 = sum(x * int(t) for x, t in zip([1, 60, 3600], reversed(t2.split(":"))))
     if tt2 != None:
         t2 = t2 + tt2[:1] + "00"
