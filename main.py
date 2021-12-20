@@ -24,6 +24,6 @@ async def startt(bot, m):
     aa2 = a2_1.append(a2_2)
     aa2.export(dir+"2.mp3", format="mp3")
 
-    os.system('ffmpeg -i 2.mp3')
+    os.system('ffmpeg -i 2.2.mp3')
 
 bot.run()
