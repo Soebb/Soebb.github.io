@@ -71,8 +71,8 @@ def gettime(t2):
 
 @bot.on_callback_query()
 async def callback(bot, update):
-    global chatid
-    global msgid
+    #global chatid
+    #global msgid
     if update.data == "refresh":
         keyboard = []
         keyboard.append(refresh_button)
@@ -124,7 +124,9 @@ async def callback(bot, update):
                 t6 = gettime(t6)
                 print(t2)
                 print(t6)
-                return
+    except Exception as e:
+        print(e)
+'''
                 t3_1, t3_2, t3_3, t3_4, t3_5 = t3.split()
                 t3_1 = gettime(t3_1)
                 t3_2 = gettime(t3_2)
@@ -157,5 +159,6 @@ async def callback(bot, update):
                 chatid = update.message.from_user.id
     except:
         pass
+'''
 
 bot.run()
