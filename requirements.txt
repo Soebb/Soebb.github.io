@@ -1,5 +1,6 @@
 pyrogram
 tgcrypto
+webpage2telegraph
 pydub
 parse-torrent-name
 pyromod
