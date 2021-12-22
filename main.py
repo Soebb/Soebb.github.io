@@ -23,8 +23,9 @@ refresh_button = [
         callback_data='refresh'
     )
 ]
-dir = 'C:/voicetag/'
-folder = 'C:/Users/Administrator/Downloads/Telegram Desktop/'
+
+folder = 'C:/Users/Administrator/Downloads/Telegram Desktop'
+
 
 a1 = dir + '1.mp3'
 a2 = dir + '2.mp3'
@@ -33,7 +34,9 @@ a6 = dir + '6.mp3'
 aac = dir + 'a.aac'
 msgid = 0
 chatid = 0
-vdir = folder + '*'
+vdir = folder + '/*'
+dir = 'C:/voicetag/'
+main = folder.rsplit('/', 1)[1] + '\\'
 @bot.on_message(filters.text)
 async def start(bot, m):
     keyboard = []
@@ -44,8 +47,8 @@ async def start(bot, m):
                 keyboard.append(
                     [
                         InlineKeyboardButton(
-                            text=file.rsplit('/', 1)[1].replace('Telegram Desktop\\', ''),
-                            callback_data=file.rsplit('/', 1)[1].replace('Telegram Desktop\\', '')
+                            text=file.rsplit('/', 1)[1].replace(main, ''),
+                            callback_data=file.rsplit('/', 1)[1].replace(main, '')
                         )
                     ]
                 )
@@ -83,8 +86,8 @@ async def callback(bot, update):
                 keyboard.append(
                     [
                         InlineKeyboardButton(
-                            text=file.rsplit('/', 1)[1].replace('Telegram Desktop\\', ''),
-                            callback_data=file.rsplit('/', 1)[1].replace('Telegram Desktop\\', '')
+                            text=file.rsplit('/', 1)[1].replace(main, ''),
+                            callback_data=file.rsplit('/', 1)[1].replace(main, '')
                         )
                     ]
                 )
@@ -100,7 +103,7 @@ async def callback(bot, update):
             if vname != "refresh":
                 #vname = file.rsplit('/', 1)[1].replace('Telegram Desktop\\', '')
                 ext = '.' + file.rsplit('.', 1)[1]
-                v = folder + vname
+                v = folder + '/' + vname
                 vname = vname.replace('.ts', '.mp4')
                 try:
                     os.remove(a2)
