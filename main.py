@@ -24,7 +24,7 @@ refresh_button = [
     )
 ]
 dir = 'C:/voicetag/'
-vdir = 'C:/Users/Administrator/Downloads/Telegram Desktop/*'
+folder = 'C:/Users/Administrator/Downloads/Telegram Desktop/'
 
 a1 = dir + '1.mp3'
 a2 = dir + '2.mp3'
@@ -33,20 +33,22 @@ a6 = dir + '6.mp3'
 aac = dir + 'a.aac'
 msgid = 0
 chatid = 0
+vdir = folder + '*'
 @bot.on_message(filters.text)
 async def start(bot, m):
     keyboard = []
     keyboard.append(refresh_button)
     try:
         for file in glob.glob(vdir):
-            keyboard.append(
-                [
-                    InlineKeyboardButton(
-                        text=file.rsplit('/', 1)[1].replace('Telegram Desktop\\', ''),
-                        callback_data=file.rsplit('/', 1)[1].replace('Telegram Desktop\\', '')
-                    )
-                ]
-            )
+            if file.endswith(('.ts', '.mp4', '.mkv')):
+                keyboard.append(
+                    [
+                        InlineKeyboardButton(
+                            text=file.rsplit('/', 1)[1].replace('Telegram Desktop\\', ''),
+                            callback_data=file.rsplit('/', 1)[1].replace('Telegram Desktop\\', '')
+                        )
+                    ]
+                )
     except Exception as e:
         print(e)
         return
@@ -92,12 +94,13 @@ async def callback(bot, update):
         keyboard.append(refresh_button)
         await update.message.edit(text="Which one?", reply_markup=InlineKeyboardMarkup(keyboard))
         return
+    vname = update.data
     try:
-        for file in glob.glob(vdir):
-            if file.rsplit('/', 1)[1].replace('Telegram Desktop\\', '') == update.data:
-                vname = file.rsplit('/', 1)[1].replace('Telegram Desktop\\', '')
+        if vname:
+            if vname != "refresh":
+                #vname = file.rsplit('/', 1)[1].replace('Telegram Desktop\\', '')
                 ext = '.' + file.rsplit('.', 1)[1]
-                v = 'C:/Users/Administrator/Downloads/Telegram Desktop/' + vname
+                v = folder + vname
                 vname = vname.replace('.ts', '.mp4')
                 try:
                     os.remove(a2)
