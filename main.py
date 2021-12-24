@@ -38,24 +38,9 @@ main = folder.rsplit('/', 1)[1] + '\\'
 
 @bot.on_message(filters.text)
 async def start(bot, m):
-    keyboard = []
-    keyboard.append(refresh_button)
-    try:
-        for file in glob.glob(vdir):
-            if file.endswith(('.ts', '.mp4', '.mkv')):
-                keyboard.append(
-                    [
-                        InlineKeyboardButton(
-                            text=file.rsplit('/', 1)[1].replace(main, ''),
-                            callback_data=file.rsplit('/', 1)[1].replace(main, '')
-                        )
-                    ]
-                )
-    except Exception as e:
-        print(e)
-        return
-    keyboard.append(refresh_button)
-    await m.reply_text(text="Which one?", reply_markup=InlineKeyboardMarkup(keyboard))
+    #await bot.send_message(chat_id=id, text="Which one?", reply_markup=InlineKeyboardMarkup(keyboard))
+    #await m.reply_text(text="Which one?", reply_markup=InlineKeyboardMarkup(keyboard))
+    await m.reply_text(text="hi")
 
 def gettime(t2):
     try:
@@ -72,36 +57,8 @@ def gettime(t2):
         t2 = f'{t2}000'
     return t2
 
-@bot.on_callback_query()
-async def callback(bot, update):
-    global chatid
-    global msgid
-    if update.data == "refresh":
-        keyboard = []
-        keyboard.append(refresh_button)
-        try:
-            for file in glob.glob(vdir):
-                if file.endswith(('.ts', '.mp4', '.mkv')):
-                    keyboard.append(
-                        [
-                            InlineKeyboardButton(
-                                text=file.rsplit('/', 1)[1].replace(main, ''),
-                                callback_data=file.rsplit('/', 1)[1].replace(main, '')
-                            )
-                        ]
-                    )
-        except Exception as e:
-            print(e)
-            return
-        keyboard.append(refresh_button)
-        await update.message.edit(text="Which one?", reply_markup=InlineKeyboardMarkup(keyboard))
-        return
-    vname = update.data
-    try:
-        if vname:
-            if vname != "refresh":
-                ext = '.' + file.rsplit('.', 1)[1]
-                v = folder + '/' + vname
+Bnnnn_callback_query()
+async def callback(
                 vname = vname.replace('.ts', '.mp4')
                 try:
                     os.remove(a2)
@@ -133,6 +90,7 @@ async def callback(bot, update):
                 t3_5 = gettime(t3_5)
                 t6 = gettime(t66.text)
                 processmsg = await update.message.reply_text('processing..')
+
                 a2_1 = AudioSegment.from_mp3(dir + '2.1.mp3')
                 a2_2 = AudioSegment.from_mp3(dir + '2.2.mp3')
                 aa2 = a2_1.append(a2_2)
