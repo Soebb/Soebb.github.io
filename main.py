@@ -6,9 +6,9 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 import PTN
 import shutil
 
-BOT_TOKEN = "5011115624:AAEDtnMcl3rXM9u-d-Su_YnHcilMyNcNPNw"
-API_ID = "4328913"
-API_HASH = "3230ec801f78a517c9a2ad6bebb7f7b4"
+BOT_TOKEN = ""
+API_ID = ""
+API_HASH = ""
 
 bot = Client(
     ":memory:",
@@ -25,8 +25,6 @@ refresh_button = [
 ]
 
 folder = 'C:/Users/Administrator/Downloads/Telegram Desktop'
-
-
 msgid = 0
 chatid = 0
 vdir = folder + '/*'
@@ -36,8 +34,8 @@ a2 = dir + '2.mp3'
 a3 = dir + '3.mp3'
 a6 = dir + '6.mp3'
 aac = dir + 'a.aac'
-
 main = folder.rsplit('/', 1)[1] + '\\'
+
 @bot.on_message(filters.text)
 async def start(bot, m):
     keyboard = []
@@ -57,7 +55,6 @@ async def start(bot, m):
         print(e)
         return
     keyboard.append(refresh_button)
-    #await bot.send_message(chat_id=id, text="Which one?", reply_markup=InlineKeyboardMarkup(keyboard))
     await m.reply_text(text="Which one?", reply_markup=InlineKeyboardMarkup(keyboard))
 
 def gettime(t2):
@@ -102,7 +99,6 @@ async def callback(bot, update):
     try:
         if vname:
             if vname != "refresh":
-                #vname = file.rsplit('/', 1)[1].replace('Telegram Desktop\\', '')
                 ext = '.' + file.rsplit('.', 1)[1]
                 v = folder + '/' + vname
                 vname = vname.replace('.ts', '.mp4')
