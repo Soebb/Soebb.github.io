@@ -12,7 +12,7 @@ API_HASH = "3230ec801f78a517c9a2ad6bebb7f7b4"
 
 
 bot = Client(
-    ":memory:",
+    "Bot",
     bot_token = BOT_TOKEN,
     api_id = API_ID,
     api_hash = API_HASH
@@ -59,15 +59,21 @@ def gettime(t2):
         t2 = f'{t2}000'
     return t2
 
-@bot.on_message(filters.audio)
+@bot.on_message(filters.audio | filters.video | filters.document)
 async def callback(bot, m):
     if not os.path.isdir('temp/'):
         os.makedirs('temp/')
+    file = 'a.aac'
+    media = m.audio or m.video or m.document
     try:
-        vname = m.audio.file_name
+        vname = media.file_name
         await m.reply("downloading..")
-        file = await bot.download_media(message=m, file_name='temp/')
-        ext = '.' + file.rsplit('.', 1)[1]
+        if vname.rsplit('.', 1)[1].lower() == "aac":
+            await m.download(file)
+        else:
+            fil = await bot.download_media(message=m, file_name='temp/')
+            os.system(f'ffmpeg -i "{fil}" -vn -y a.aac')
+
         #v = folder + '/' + vname
         #vname = vname.replace('.ts', '.mp4')
         try:
