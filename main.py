@@ -63,17 +63,11 @@ def gettime(t2):
 async def callback(bot, m):
     if not os.path.isdir('temp/'):
         os.makedirs('temp/')
-    file = 'a.aac'
+    file = await bot.download_media(message=m, file_name='temp/')
     media = m.audio or m.video or m.document
     vname = media.file_name
     try:
         await m.reply("downloading..")
-        if vname.rsplit('.', 1)[1].lower() == "aac":
-            await m.download(file)
-        else:
-            fil = await bot.download_media(message=m, file_name='temp/')
-            os.system(f'ffmpeg -i "{fil}" -vn -y a.aac')
-
         #v = folder + '/' + vname
         #vname = vname.replace('.ts', '.mp4')
         try:
@@ -114,7 +108,10 @@ async def callback(bot, m):
         time.sleep(10)
         #os.system(f'ffmpeg -i "{file}" -i {aac} -c copy -map 0:0 -map 1:0 -y "{vname}"')
         await m.reply_audio(audio=aac)
-
+        try:
+            os.remove(file)
+        except:
+            pass
     except Exception as e:
         print(e)
 
