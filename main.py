@@ -28,7 +28,7 @@ a1 = dir + '1.mp3'
 a2 = dir + '2.mp3'
 a3 = dir + '3.mp3'
 a6 = dir + '6.mp3'
-aac = dir + 'a.aac'
+aac = 'a2.aac'
 main = folder.rsplit('/', 1)[1] + '\\'
 
 @bot.on_message(filters.text)
@@ -65,8 +65,8 @@ async def callback(bot, m):
         os.makedirs('temp/')
     file = 'a.aac'
     media = m.audio or m.video or m.document
+    vname = media.file_name
     try:
-        vname = media.file_name
         await m.reply("downloading..")
         if vname.rsplit('.', 1)[1].lower() == "aac":
             await m.download(file)
@@ -82,10 +82,6 @@ async def callback(bot, m):
             pass
         try:
             os.remove(dir + '2.1.mp3')
-        except:
-            pass
-        try:
-            os.remove('temp/mix.mp3')
         except:
             pass
         n = PTN.parse(vname)
@@ -117,11 +113,8 @@ async def callback(bot, m):
         os.system(f'ffmpeg -i "{file}" -vn -i {a1} -vn -i {a2} -vn -i {a3} -vn -i {a6} -vn -filter_complex "[1]adelay=00000|00000[b]; [2]adelay={t2}|{t2}[c]; [3]adelay={t3_1}|{t3_1}[d]; [3]adelay={t3_2}|{t3_2}[e]; [3]adelay={t3_3}|{t3_3}[f]; [3]adelay={t3_4}|{t3_4}[g]; [3]adelay={t3_5}|{t3_5}[h]; [4]adelay={t6}|{t6}[i]; [0][b][c][d][e][f][g][h][i]amix=9" -c:a aac -b:a 125k -y {aac}')   
         time.sleep(10)
         #os.system(f'ffmpeg -i "{file}" -i {aac} -c copy -map 0:0 -map 1:0 -y "{vname}"')
-        await m.reply_audio(audio='temp/mix.mp3')
-        try:
-            os.remove('temp/mix.mp3')
-        except:
-            pass
+        await m.reply_audio(audio=aac)
+
     except Exception as e:
         print(e)
 
