@@ -31,7 +31,7 @@ a6 = dir + '6.mp3'
 aac = 'a2.aac'
 main = folder.rsplit('/', 1)[1] + '\\'
 
-
+times = "times"
 def gettime(t2):
     try:
         tt2 = t2.split('.')[1]
@@ -54,8 +54,20 @@ def gettime(t2):
         t2 = f'{t2}000'
     return t2
 
-@bot.on_message(filters.audio | filters.video | filters.document)
-async def callback(bot, m):
+
+@Bot.on(events.NewMessage(incoming=True, func=lambda e: e.is_private and e.text))
+async def export(event):
+    global times
+    if '/' in event.text:
+        await event.reply("سلام تایم هارو یکجا باهم بفرست")
+    else:
+        times = event.text
+
+
+@Bot.on(events.NewMessage(incoming=True, func=lambda e: e.is_private and e.media))
+async def expor(event):
+    global times
+    await event.reply("processing..")
     if not os.path.isdir('temp/'):
         os.makedirs('temp/')
     file = await bot.download_media(message=m, file_name='temp/')
