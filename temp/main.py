@@ -110,4 +110,4 @@ async def callback(bot, m):
     except Exception as e:
         print(e)
 
-bot.run()
+Bot.run_until_disconnected()
