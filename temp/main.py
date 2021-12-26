@@ -1,20 +1,22 @@
 from pydub import AudioSegment
 import os, time, glob, datetime
-from pyromod import listen
+#from pyromod import listen
 import PTN
 import shutil
-
-BOT_TOKEN = "5011115624:AAEDtnMcl3rXM9u-d-Su_YnHcilMyNcNPNw"
-API_ID = "4328913"
-API_HASH = "3230ec801f78a517c9a2ad6bebb7f7b4"
+from telethon import TelegramClient, events
 
 
-bot = Client(
-    "Bot",
-    bot_token = BOT_TOKEN,
-    api_id = API_ID,
-    api_hash = API_HASH
-)
+BOT_TOKEN = " "
+
+try:
+    Bot = TelegramClient("Bot", 6, "eb06d4abfb49dc3eeb1aeb98ae0f581e").start(bot_token=BOT_TOKEN)
+except Exception as e:
+    print(e)
+
+
+@Bot.on(events.NewMessage(incoming=True, pattern="^/start"))
+async def start_(event):
+    await event.reply("hi")
 
 
 folder = 'C:/Users/Administrator/Downloads/Telegram Desktop'
@@ -29,11 +31,6 @@ a6 = dir + '6.mp3'
 aac = 'a2.aac'
 main = folder.rsplit('/', 1)[1] + '\\'
 
-@bot.on_message(filters.text)
-async def start(bot, m):
-    #await bot.send_message(chat_id=id, text="Which one?", reply_markup=InlineKeyboardMarkup(keyboard))
-    #await m.reply_text(text="Which one?", reply_markup=InlineKeyboardMarkup(keyboard))
-    await m.reply_text(text="hi")
 
 def gettime(t2):
     try:
