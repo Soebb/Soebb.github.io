@@ -14,11 +14,6 @@ except Exception as e:
     print(e)
 
 
-@Bot.on(events.NewMessage(incoming=True, pattern="^/start"))
-async def start_(event):
-    await event.reply("hi")
-
-
 folder = 'C:/Users/Administrator/Downloads/Telegram Desktop'
 msgid = 0
 chatid = 0
@@ -70,9 +65,11 @@ async def expor(event):
     await event.reply("processing..")
     if not os.path.isdir('temp/'):
         os.makedirs('temp/')
-    file = await bot.download_media(message=m, file_name='temp/')
-    media = m.audio or m.video or m.document
-    vname = media.file_name
+    #file = await bot.download_media(message=m, file_name='temp/')
+    file = await Bot.download_media(event.media, 'temp/')
+
+    #media = m.audio or m.video or m.document
+    vname = media.event.file_name
     try:
         await m.reply("downloading..")
         #v = folder + '/' + vname
