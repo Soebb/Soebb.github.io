@@ -1,8 +1,6 @@
 from pydub import AudioSegment
 import os, time, glob, datetime
 from pyromod import listen
-from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 import PTN
 import shutil
 
