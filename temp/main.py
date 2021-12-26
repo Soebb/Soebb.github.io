@@ -69,9 +69,9 @@ async def expor(event):
     file = await Bot.download_media(event.media, 'temp/')
 
     #media = m.audio or m.video or m.document
-    vname = media.event.file_name
+    vname = media.event.file.name
     try:
-        await m.reply("downloading..")
+        #await m.reply("downloading..")
         #v = folder + '/' + vname
         #vname = vname.replace('.ts', '.mp4')
         try:
@@ -89,20 +89,15 @@ async def expor(event):
         #askaud = await m.reply_text('صوت 2.1 رو بفرست تا با 2.2 ادغام کنم')
         #aud: Message = await bot.listen(m.chat.id, filters=filters.audio)
         #await bot.download_media(message=aud.audio, file_name=dir + '2.1.mp3')
-        t2t = await m.reply_text('تایم صوت 2 (2.2 + 2.1) رو بفرست')
-        t22: Message = await bot.listen(m.chat.id, filters=filters.text)
-        t3t = await m.reply_text('تایم صوت 3 رو بفرست\n3.mp3')
-        t33: Message = await bot.listen(m.chat.id, filters=filters.text)
-        t6t = await m.reply_text('تایم صوت 6 رو بفرست\n6.mp3')
-        t66: Message = await bot.listen(m.chat.id, filters=filters.text)
-        t2 = int(gettime(t22.text))
-        t3_1, t3_2, t3_3, t3_4, t3_5 = t33.text.split()
-        t3_1 = int(gettime(t3_1))
-        t3_2 = int(gettime(t3_2))
-        t3_3 = int(gettime(t3_3))
-        t3_4 = int(gettime(t3_4))
-        t3_5 = int(gettime(t3_5))
-        t6 = int(gettime(t66.text))
+        
+        t2 = int(gettime(times.split()[0]))
+        #t3_1, t3_2, t3_3, t3_4, t3_5 = t33.text.split()
+        t3_1 = int(gettime(times.split()[1]))
+        t3_2 = int(gettime(times.split()[2]))
+        t3_3 = int(gettime(times.split()[3]))
+        t3_4 = int(gettime(times.split()[4]))
+        t3_5 = int(gettime(times.split()[5]))
+        t6 = int(gettime(times.split()[6]))
         #processmsg = await update.message.reply_text('processing..')
         a2_1 = AudioSegment.from_mp3(dir + '2.1.mp3')
         a2_2 = AudioSegment.from_mp3(dir + '2.2.mp3')
