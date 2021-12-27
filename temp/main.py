@@ -25,8 +25,8 @@ a3 = dir + '3.mp3'
 a6 = dir + '6.mp3'
 aac = 'a2.aac'
 main = folder.rsplit('/', 1)[1] + '\\'
+time2 = time3 = time6 = "shit"
 
-times = "times"
 def gettime(t2):
     try:
         tt2 = t2.split('.')[1]
@@ -50,18 +50,14 @@ def gettime(t2):
     return t2
 
 
-@Bot.on(events.NewMessage(incoming=True, func=lambda e: e.is_private and e.text))
-async def export(event):
-    global times
-    if '/' in event.text:
-        await event.reply("سلام تایم هارو یکجا باهم بفرست")
-    else:
-        times = event.text
-
-
-@Bot.on(events.NewMessage(incoming=True, func=lambda e: e.is_private and e.media))
+@Bot.on(events.NewMessage(incoming=True, func=lambda e: e.is_private))
 async def expor(event):
-    global times
+    global time2
+    global time3
+    global time6
+    if event.text and event.text.startswith("/"):
+        await event.reply("ورودی رو بفرست")
+        return
     await event.reply("processing..")
     if not os.path.isdir('temp/'):
         os.makedirs('temp/')
